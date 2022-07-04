@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 
+import { motion, AnimatePresence } from "framer-motion";
+
 function App(props) {
   const [randomInput, setRandomInput] = useState(props.randomInput);
   const [timerPaused, setTimerPaused] = useState(true);
@@ -33,17 +35,23 @@ function App(props) {
   };
 
   return (
-    <main className="App">
+    <motion.div
+      className="App"
+      initial={{ y: "100%" }}
+      animate={{
+        y: "10%",
+      }}
+    >
       <p className="App__CurrentTime">{randomInput}</p>
       <section>
         <button onClick={timerPaused ? startTimer : stopTimer}>
-          {timerPaused ? "Start" : "Stop"}
+          {randomInput > 0 && timerPaused ? "Start" : "Stop"}
         </button>
         <button onClick={resetTimer}>Reset</button>
       </section>
-
+      <h4>{randomInput === 0 && "Timer Finished"}</h4>
       <br></br>
-    </main>
+    </motion.div>
   );
 }
 
